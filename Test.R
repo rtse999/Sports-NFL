@@ -6,7 +6,7 @@
 #
 # Location: /Users/raymondtse/Dropbox/Analysis/Sports/test.r
 # First created: 16:20 - Thursday 27 December 2018
-# Last modified: 23:14 - Saturday 29 December 2018
+# Last modified: 23:58 - Saturday 29 December 2018
 # ------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------
@@ -359,3 +359,6 @@ timeout_reg_2017 <- timeout_126sec_4qtr(reg_pbp_2017)
 
 post_pbp_2017 <- read_pbp("Data/PBP/post_pbp_2017.csv")
 timeout_post_2017 <- timeout_126sec_4qtr(post_pbp_2017)
+
+reg_pbp_2018 <- read_pbp("Data/PBP/reg_pbp_2018.csv")
+timeout_reg_2018 <- timeout_126sec_4qtr(reg_pbp_2018)
