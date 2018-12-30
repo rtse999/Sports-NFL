@@ -98,4 +98,5 @@ timeout_post_2017 <- timeout_126sec_4qtr(post_pbp_2017)
 reg_pbp_2018 <- read_pbp_data("Data/PBP/reg_pbp_2018.csv")
 timeout_reg_2018 <- timeout_126sec_4qtr(reg_pbp_2018)
 
-plays <- plays_before_after(reg_pbp_2018, game = 2018121604, play = 4413)            
+plays <- plays_before_after(reg_pbp_2018, game = 2018090600, play = 37)
+

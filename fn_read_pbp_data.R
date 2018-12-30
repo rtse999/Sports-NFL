@@ -7,8 +7,8 @@
 # Link: https://github.com/ryurko/nflscrapR-data/tree/master/play_by_play_data
 #
 # Location: /Users/raymondtse/Dropbox/Analysis/Sports/fn_read_pbp_data.r
-# First created: 16:20 - 15:44 - Sunday 30 December 2018
-# Last modified: 23:58 - 15:44 - Sunday 30 December 2018
+# First created: 15:44 - Sunday 30 December 2018
+# Last modified: 20:33 - Sunday 30 December 2018
 # ------------------------------------------------------------------------
 
 read_pbp_data <- function(filename) {
