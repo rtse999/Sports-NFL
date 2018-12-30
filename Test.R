@@ -26,6 +26,12 @@ library(skimr)
 library(tidyverse)
 
 # ------------------------------------------------------------------------
+# Load functions
+# ------------------------------------------------------------------------
+source(file = "read_pbp_data.r")
+source(file = "timeout_126sec_4qtr.r")
+
+# ------------------------------------------------------------------------
 # Download data
 # ------------------------------------------------------------------------
 format(Sys.time(), "%a %b %d %H:%M:%S %Y")
@@ -82,7 +88,7 @@ data_structure <-
 
 ---
 
-read_pbp <- function(filename) {
+read_pbp_data <- function(filename) {
                       read_csv(filename,
                          col_types = 
                            cols(
@@ -354,11 +360,11 @@ timeout_126sec_4qtr <- function (pbp_data) {
     dplyr::filter(timeout_team == defteam)
 }
 
-reg_pbp_2017 <- read_pbp("Data/PBP/reg_pbp_2017.csv")
+reg_pbp_2017 <- read_pbp_data("Data/PBP/reg_pbp_2017.csv")
 timeout_reg_2017 <- timeout_126sec_4qtr(reg_pbp_2017)
 
-post_pbp_2017 <- read_pbp("Data/PBP/post_pbp_2017.csv")
+post_pbp_2017 <- read_pbp_data("Data/PBP/post_pbp_2017.csv")
 timeout_post_2017 <- timeout_126sec_4qtr(post_pbp_2017)
 
-reg_pbp_2018 <- read_pbp("Data/PBP/reg_pbp_2018.csv")
+reg_pbp_2018 <- read_pbp_data("Data/PBP/reg_pbp_2018.csv")
 timeout_reg_2018 <- timeout_126sec_4qtr(reg_pbp_2018)
