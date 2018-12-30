@@ -4,8 +4,8 @@
 #   https://github.com/ryurko/nflscrapR-data/tree/master/play_by_play_data
 #
 # Location: /Users/raymondtse/Dropbox/Analysis/Sports/fn_plays_before_after.r
-# First created: 16:20 - 15:44 - Sunday 30 December 2018
-# Last modified: 23:58 - 15:44 - Sunday 30 December 2018
+# First created: 15:44 - Sunday 30 December 2018
+# Last modified: 20:39 - Sunday 30 December 2018
 # ------------------------------------------------------------------------
 
 plays_before_after <- function(pbp, game, play) {
