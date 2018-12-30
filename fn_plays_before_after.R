@@ -13,15 +13,25 @@ plays_before_after <- function(pbp, game, play) {
     pbp %>% 
     select(game_id, play_id) %>% 
     dplyr::filter(game_id == game, play_id < play) %>% 
-    select(play_id) %>% 
-    max()
+    select(play_id) 
+  
+  if(nrow(play_before) == 0) {
+    play_before = play
+  } else {
+    play_before = max(play_before)    
+  }
   
   play_after <- 
     pbp %>% 
     select(game_id, play_id) %>% 
     dplyr::filter(game_id == game, play_id > play) %>% 
-    select(play_id) %>% 
-    min()
+    select(play_id) 
+  
+  if(nrow(play_after) == 0) {
+    play_after = play
+  } else {
+    play_after = min(play_after)    
+  }
   
   plays_before_after <-
     pbp %>% 
