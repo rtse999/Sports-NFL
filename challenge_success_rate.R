@@ -17,7 +17,7 @@
 #
 # Location:
 # First created: 
-# Last modified: 13:25 - Saturday 5 January 2019
+# Last modified: 14:09 - Sunday 6 January 2019
 # ------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------
@@ -30,6 +30,7 @@ format(Sys.time(), "%a %b %d %H:%M:%S %Y")
 # ------------------------------------------------------------------------
 library(conflicted)
 library(skimr)
+library(stringr)
 library(tidyverse)
 
 # ------------------------------------------------------------------------
@@ -81,6 +82,8 @@ sum(coaches_challenge$replay_or_challenge_result == "upheld")
 # ------------------------------------------------------------------------
 # Are coaches challenges in the pbp data set ?
 #
+# http://www.footballzebras.com/2018/01/reversals-in-replay-dip-after-controversial-season/
+#
 # Link: 2x Ravens challenges early in 21/10 Saints @ Ravens game
 #         by Ravens
 #
@@ -130,7 +133,4 @@ ravens_coaches_challenges <-
 # pbp data records it as a Baltimore timeout but not a challenge as the 
 #  challenge wasn't upheld
 #
-
-
-
 
