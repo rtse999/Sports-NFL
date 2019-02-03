@@ -2,6 +2,8 @@
 # Test of nflscrapR library
 #
 # Link: https://github.com/maksimhorowitz/nflscrapR
+# Link: https://github.com/ryurko/nflscrapR-data
+#
 # Link: https://tlfvincent.github.io//2017/10/08/nlf-running-back-deep-dive/
 #
 # Location: /Users/raymondtse/Dropbox/Analysis/Sports/test.r
@@ -59,7 +61,7 @@ format(Sys.time(), "%a %b %d %H:%M:%S %Y")
 
 format(Sys.time(), "%a %b %d %H:%M:%S %Y")
 
-reg_pbp_17 <- scrape_season_play_by_play(2017, type = "reg")
+post_pbp_18 <- scrape_season_play_by_play(2018, type = "post")
 
 format(Sys.time(), "%a %b %d %H:%M:%S %Y")
 

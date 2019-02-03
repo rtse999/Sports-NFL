@@ -7,7 +7,7 @@
 #  Kindle Edition. 
 #
 # Link: https://github.com/maksimhorowitz/nflscrapR
-# Link: https://tlfvincent.github.io//2017/10/08/nlf-running-back-deep-dive/
+# Link: https://github.com/ryurko/nflscrapR-data
 #
 # Location: /Users/raymondtse/Dropbox/Analysis/Sports/timeout_126sec_4qtr.r
 # First created: 16:20 - Thursday 27 December 2018
