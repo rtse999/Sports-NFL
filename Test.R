@@ -21,6 +21,7 @@ format(Sys.time(), "%a %b %d %H:%M:%S %Y")
 # ------------------------------------------------------------------------
 library(conflicted)
 library(devtools)
+library(kableExtra)
 library(nflscrapR)
 library(pander)
 library(readr)
@@ -101,4 +102,27 @@ reg_pbp_2018 <- read_pbp_data("Data/PBP/reg_pbp_2018.csv")
 timeout_reg_2018 <- timeout_126sec_4qtr(reg_pbp_2018)
 
 plays <- plays_before_after(reg_pbp_2018, game = 2018090600, play = 37)
+
+---
+  
+glimpse(reg_pbp_data)
+
+tmp <- add_column(reg_pbp_2014, touchback = NA, .after = "incomplete_pass")
+colnames(tmp)
+tmp$touchback
+rm(tmp)
+
+glimpse(reg_pbp_data)
+
+tmp <- skim_to_wide(reg_pbp_data) 
+tmp[match(names(reg_pbp_data), x$variable),] %>% 
+  knitr::kable(format = "html") %>% 
+  kable_styling("striped", full_width = F)
+
+x <- skim_to_wide(mtcars) 
+x[match(names(mtcars), x$variable),]
+
+x <- skim_to_wide(reg_pbp_data) 
+x[match(names(reg_pbp_data), x$variable),]
+
 

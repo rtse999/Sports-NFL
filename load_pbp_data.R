@@ -21,17 +21,23 @@ library(conflicted)
 library(tidyverse)
 
 # ------------------------------------------------------------------------
+# Load functions
+# ------------------------------------------------------------------------
+source(file = "fn_read_pbp_data.r")
+
+# ------------------------------------------------------------------------
 # Read data
 # ------------------------------------------------------------------------
-format(Sys.time(), "%a %b %d %H:%M:%S %Y")
-
 reg_pbp_2014 <- read_pbp_data("Data/PBP/reg_pbp_2014.csv")
 reg_pbp_2015 <- read_pbp_data("Data/PBP/reg_pbp_2015.csv")
 reg_pbp_2016 <- read_pbp_data("Data/PBP/reg_pbp_2016.csv")
 reg_pbp_2017 <- read_pbp_data("Data/PBP/reg_pbp_2017.csv")
 reg_pbp_2018 <- read_pbp_data("Data/PBP/reg_pbp_2018.csv")
 
-format(Sys.time(), "%a %b %d %H:%M:%S %Y")
+reg_pbp_2014 <- add_column(reg_pbp_2014, touchback = NA, .after = "incomplete_pass")
+reg_pbp_2015 <- add_column(reg_pbp_2015, touchback = NA, .after = "incomplete_pass")
 
 reg_pbp_data <- bind_rows(reg_pbp_2014, reg_pbp_2015, reg_pbp_2016, reg_pbp_2017, reg_pbp_2018)
+
+
 
