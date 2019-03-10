@@ -30,12 +30,19 @@ source(file = "src/functions_NFLcom_QBs/fn_load_QB_data.r")
 # Read Data 
 # ------------------------------------------------------------------------
 afc_regseason_qbs <- load_QB_data("data/NFLcom_QB/AFC_RegSeason_QBs.csv")
+nfc_regseason_qbs <- load_QB_data("data/NFLcom_QB/NFC_1999-2018_RegSeason_QBs.csv")
+
+regseason_qbs <- bind_rows(afc_regseason_qbs, nfc_regseason_qbs)
+
+regseason_qbs <- 
+  regseason_qbs %>% 
+  dplyr::filter(Season >= 1999)
 
 # ------------------------------------------------------------------------
 # Create new features
 # ------------------------------------------------------------------------
-afc_regseason_qbs <- 
-  afc_regseason_qbs %>% 
+regseason_qbs <- 
+  regseason_qbs %>% 
   mutate(
     games_played = ifelse(`Att/G` > 0, round(Att / `Att/G`, 0), 0),
     td_game = ifelse(games_played > 0, TD / games_played, 0),
@@ -49,37 +56,29 @@ afc_regseason_qbs <-
 # ------------------------------------------------------------------------
 # Prep FNN data
 # ------------------------------------------------------------------------
-afc_qb_data <- 
-  afc_regseason_qbs %>% 
+qb_data <- 
+  regseason_qbs %>% 
   select(Comp:`1st%`, `20+`:sacks_game)
 
 # Replace all NAs with zeroes
-afc_qb_data[is.na(afc_qb_data)] <- 0
+qb_data[is.na(qb_data)] <- 0
 
 # Scale values
-afc_qb_data <- scale(afc_qb_data)
+qb_data <- scale(qb_data)
 
 # ------------------------------------------------------------------------
 # FNN
 # ------------------------------------------------------------------------
-get.knn(afc_qb_data, k=3)
+get.knn(qb_data, k=3)
 
 # ------------------------------------------------------------------------
 # Samples
 # ------------------------------------------------------------------------
-pmahomes2018 <-
-  afc_regseason_qbs %>% 
-  slice(2, 1, 323, 219)
-
-pbrady2018 <-
-  afc_regseason_qbs %>% 
-  slice(7, 361, 401, 897)
-
 pmahomes2018_scaled <-
-  afc_regseason_qbs %>% 
-  slice(2, 478, 591, 323)
+  regseason_qbs %>% 
+  slice(2, 478, 323, 591)
 
 pbrady2018_scaled <-
-  afc_regseason_qbs %>% 
-  slice(7, 627, 225, 480)
+  regseason_qbs %>% 
+  slice(7, 925, 1462, 627)
 
