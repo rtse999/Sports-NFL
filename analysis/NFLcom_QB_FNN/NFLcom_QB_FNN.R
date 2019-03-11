@@ -18,6 +18,7 @@ format(Sys.time(), "%a %b %d %H:%M:%S %Y")
 # ------------------------------------------------------------------------
 library(conflicted)
 library(FNN)
+library(kableExtra)
 library(skimr)
 library(tidyverse)
 
@@ -25,6 +26,15 @@ library(tidyverse)
 # Load functions
 # ------------------------------------------------------------------------
 source(file = "src/functions_NFLcom_QBs/fn_load_QB_data.r")
+
+format_comparison <- function(df) {
+  df %>% 
+    select(Player:Season, Team:`1st%`, `20+`:sacks_game) %>% 
+    t() %>% 
+    as.data.frame() %>% 
+    knitr::kable(format = "html") %>% 
+    kable_styling("striped", full_width = F)
+}
 
 # ------------------------------------------------------------------------
 # Read Data 
@@ -70,6 +80,8 @@ qb_data <- scale(qb_data)
 # FNN
 # ------------------------------------------------------------------------
 get.knn(qb_data, k=3)
+nearest <- get.knn(qb_data, k=4)$nn.index
+
 
 # ------------------------------------------------------------------------
 # Samples
@@ -81,4 +93,22 @@ pmahomes2018_scaled <-
 pbrady2018_scaled <-
   regseason_qbs %>% 
   slice(7, 925, 1462, 627)
+
+rwilson2015_scaled <-
+  regseason_qbs %>% 
+  slice(927, 1023, 1056, 928)
+
+ckeenum2017_scaled <-
+  regseason_qbs %>% 
+  slice(862, 442, 1280, 899)
+
+pmanning2015_scaled <-
+  regseason_qbs %>% 
+  slice(191, 1471, 525, 1512)
+
+pmanning2013_scaled <-
+  regseason_qbs %>% 
+  slice(256, 1052, 478, 2)
+
+format_comparison(pmanning2013_scaled)
 
