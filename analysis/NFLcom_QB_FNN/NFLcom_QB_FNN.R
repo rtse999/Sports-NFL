@@ -178,3 +178,33 @@ average_scaled <-
   slice(1540, 1180, 196, 493)
 
 format_comparison(average_scaled)
+
+# ------------------------------------------------------------------------
+# Prep FNN data (Only QBs with >= 10 starts)
+# ------------------------------------------------------------------------
+qb_gt10games_data <- 
+  regseason_qbs %>% 
+  dplyr::filter(games_played >= 10) %>%
+  select(Comp:`1st%`, `20+`:sacks_game)
+
+# Replace all NAs with zeroes
+qb_gt10games_data[is.na(qb_gt10games_data)] <- 0
+
+# Scale values
+qb_gt10games_data <- scale(qb_gt10games_data)
+
+# Add an aveage QB record (all zeroes)
+qb_gt10games_data <- as.data.frame(qb_gt10games_data)
+qb_gt10games_data <- bind_rows(qb_gt10games_data, new)
+
+# ------------------------------------------------------------------------
+# FNN
+# ------------------------------------------------------------------------
+get.knn(qb_gt10games_data, k=4)
+nearest_gt10games <- get.knn(qb_gt10games_data, k=4)$nn.index
+
+
+# ------------------------------------------------------------------------
+# Samples (Only QBs with >= 10 starts)
+# ------------------------------------------------------------------------
+
