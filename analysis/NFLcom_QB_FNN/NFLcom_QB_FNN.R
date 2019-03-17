@@ -100,7 +100,7 @@ regseason_qbs <-
 # Number of unique QBs
 regseason_qbs %>%
   select(Player) %>%
-  NROW()
+  n_distinct()
 
 # Histogram of number of games played in a season
 regseason_qbs %>%
@@ -111,7 +111,7 @@ regseason_qbs %>%
 regseason_qbs %>%
   dplyr::filter(games_played >= 10) %>%
   select(Player) %>%
-  NROW()
+  n_distinct()
 
 # ------------------------------------------------------------------------
 # Prep FNN data
@@ -201,9 +201,12 @@ format_comparison(average_scaled)
 # ------------------------------------------------------------------------
 # Prep FNN data (Only QBs with >= 10 starts)
 # ------------------------------------------------------------------------
-qb_gt10games_data <- 
+regseason_qbs_gt10games <- 
   regseason_qbs %>% 
-  dplyr::filter(games_played >= 10) %>%
+  dplyr::filter(games_played >= 10)
+
+qb_gt10games_data <- 
+  regseason_qbs_gt10games %>% 
   select(Comp:`1st%`, `20+`:sacks_game)
 
 # Replace all NAs with zeroes
@@ -226,5 +229,8 @@ nearest_gt10games <- get.knn(qb_gt10games_data, k=4)$nn.index
 # ------------------------------------------------------------------------
 # Samples (Only QBs with >= 10 starts)
 # ------------------------------------------------------------------------
+average_gt10games_scaled <-
+  regseason_qbs %>% 
+  slice(681, 259, 345, 73)
 
-
+format_comparison(average_gt10games_scaled)
