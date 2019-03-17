@@ -192,6 +192,12 @@ msanchez2011_scaled <-
 
 format_comparison(msanchez2011_scaled)
 
+bgabbert2015_scaled <-
+  regseason_qbs %>% 
+  slice(934, 1509, 192, 1064)
+
+format_comparison(bgabbert2015_scaled)
+
 average_scaled <-
   regseason_qbs %>% 
   slice(1540, 1180, 196, 493)
