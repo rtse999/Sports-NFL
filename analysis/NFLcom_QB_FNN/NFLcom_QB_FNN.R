@@ -102,6 +102,11 @@ regseason_qbs %>%
   select(Player) %>%
   NROW()
 
+# Histogram of number of games played in a season
+regseason_qbs %>%
+  ggplot() >%>
+  geom_histgram(aes(x = games_played))
+
 # Number of unique QBs who played at least one 10 game season
 regseason_qbs %>%
   dplyr::filter(games_played >= 10) %>%
@@ -221,4 +226,5 @@ nearest_gt10games <- get.knn(qb_gt10games_data, k=4)$nn.index
 # ------------------------------------------------------------------------
 # Samples (Only QBs with >= 10 starts)
 # ------------------------------------------------------------------------
+
 
