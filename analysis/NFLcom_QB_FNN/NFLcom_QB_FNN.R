@@ -105,7 +105,7 @@ regseason_qbs %>%
 # Histogram of number of games played in a season
 regseason_qbs %>%
   ggplot() +
-  geom_histogram(aes(x = games_played))
+  geom_histogram(aes(x = games_played), binwidth = 1)
 
 # Number of unique QBs who played at least one 10 game season
 regseason_qbs %>%
