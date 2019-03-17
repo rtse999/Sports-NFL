@@ -95,6 +95,20 @@ regseason_qbs <-
   )
 
 # ------------------------------------------------------------------------
+# EDA
+# ------------------------------------------------------------------------
+# Number of unique QBs
+regseason_qbs %>%
+  select(Player) %>%
+  NROW()
+
+# Number of unique QBs who played at least one 10 game season
+regseason_qbs %>%
+  dplyr::filter(games_played >= 10) %>%
+  select(Player) %>%
+  NROW()
+
+# ------------------------------------------------------------------------
 # Prep FNN data
 # ------------------------------------------------------------------------
 qb_data <- 
