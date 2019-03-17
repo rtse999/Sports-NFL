@@ -230,7 +230,7 @@ nearest_gt10games <- get.knn(qb_gt10games_data, k=4)$nn.index
 # Samples (Only QBs with >= 10 starts)
 # ------------------------------------------------------------------------
 average_gt10games_scaled <-
-  regseason_qbs %>% 
+  regseason_qbs_gt10games %>% 
   slice(681, 259, 345, 73)
 
 format_comparison(average_gt10games_scaled)
