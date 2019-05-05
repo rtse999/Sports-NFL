@@ -28,7 +28,7 @@ library(tidyverse)
 # ------------------------------------------------------------------------
 # Load functions
 # ------------------------------------------------------------------------
-source(file = "fn_read_pbp_data.r")
+source(file = "/Users/raymondtse/Dropbox/Analysis/Sports/NFL/src/functions_pbp/fn_read_pbp_data.r")
 
 # ------------------------------------------------------------------------
 # Read data
