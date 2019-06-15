@@ -56,7 +56,8 @@ qb_epa <-
     avg_epa = mean(epa, na.rm = TRUE)
   ) %>% 
   ungroup() %>% 
-  arrange(-total_epa)
+  arrange(-total_epa) %>% 
+  dplyr::filter(n_play > 50) 
 
 # Calculate total and average EPA by QB for completed passes only
 qb_completions_epa <- 
@@ -73,5 +74,58 @@ qb_completions_epa <-
   dplyr::filter(n_play > 50) 
 
 qb_completions_epa %>% 
+  ggplot() +
+  geom_point(aes(x = avg_epa, y = total_epa))
+
+# Calculate total and average EPA by QB for passes up to line of scrimmage
+qb_los_epa <- 
+  passes %>% 
+  dplyr::filter(air_yards <= 0) %>% 
+  group_by(passer_player_name) %>% 
+  summarise(
+    n_play = n(),
+    total_epa = sum(epa, na.rm = TRUE),
+    avg_epa = mean(epa, na.rm = TRUE)
+  ) %>% 
+  ungroup() %>% 
+  arrange(-total_epa) %>% 
+  dplyr::filter(n_play > 50)
+
+qb_los_epa_labels <-
+  qb_los_epa %>% 
+  slice(1:5)
+
+qb_los_epa %>% 
+  ggplot() +
+  geom_vline(xintercept = 0, colour = "white", size = 3) +
+  geom_hline(yintercept = 0, colour = "white", size = 3) +
+  geom_point(aes(x = avg_epa, y = total_epa)) +
+  geom_text(aes(label = passer_player_name, x = avg_epa, 
+                                y = total_epa),
+            data = qb_los_epa_labels,
+            nudge_y = 3, alpha = 0.5) +
+  labs(
+    title = paste("Attempted passes at or behind LOS by QB - 2018"),
+    x = "Average EPA",
+    y = "Total EPA"
+  )
+
+
+# Calculate total and average EPA by QB for completed passes up to line of scrimmage only
+qb_completions_los_epa <- 
+  passes %>% 
+  dplyr::filter(complete_pass == 1) %>% 
+  dplyr::filter(air_yards <= 0) %>% 
+  group_by(passer_player_name) %>% 
+  summarise(
+    n_play = n(),
+    total_epa = sum(epa, na.rm = TRUE),
+    avg_epa = mean(epa, na.rm = TRUE)
+  ) %>% 
+  ungroup() %>% 
+  arrange(-total_epa) %>% 
+  dplyr::filter(n_play > 50) 
+
+qb_completions_los_epa %>% 
   ggplot() +
   geom_point(aes(x = avg_epa, y = total_epa))
