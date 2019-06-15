@@ -1,0 +1,77 @@
+# ------------------------------------------------------------------------
+# Average vs Total EPA for passing plays 2018
+#
+# Link: https://twitter.com/JayCromwell12/status/1139294494036242432
+#
+# Location: /Users/raymondtse/Dropbox/Analysis/Sports/NFL/analysis/QBs/QB_pass_total_vs_avg_EPA.r
+# First created: 16:24 - Saturday 15 June 2019
+# Last modified: 16:24 - Saturday 15 June 2019
+# ------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------
+# System time
+# ------------------------------------------------------------------------
+format(Sys.time(), "%a %b %d %H:%M:%S %Y")
+
+# ------------------------------------------------------------------------
+# Install Packages
+# ------------------------------------------------------------------------
+library(conflicted)
+library(skimr)
+library(tidyverse)
+
+# ------------------------------------------------------------------------
+# Load functions
+# ------------------------------------------------------------------------
+source(file = "/Users/raymondtse/Dropbox/Analysis/Sports/NFL/src/functions_pbp/fn_read_pbp_data.r")
+
+# ------------------------------------------------------------------------
+# Read data
+# ------------------------------------------------------------------------
+reg_pbp_2018 <- read_pbp_data("/Users/raymondtse/Dropbox/Analysis/github packages/nflscrapR-data/play_by_play_data/regular_season/reg_pbp_2018.csv")
+
+# ------------------------------------------------------------------------
+# Create data set
+# ------------------------------------------------------------------------
+# Refactor to function
+non_penalty_plays <- 
+  reg_pbp_2018 %>% 
+  dplyr::filter(penalty == 0) %>% 
+  dplyr::filter(!is.na(play_type))
+
+levels(non_penalty_plays$play_type)
+
+# Select only passes
+passes <-
+  non_penalty_plays %>%
+  dplyr::filter(play_type == "pass")
+  
+# Calculate total and average EPA by QB
+qb_epa <- 
+  passes %>% 
+  group_by(passer_player_name) %>% 
+  summarise(
+    n_play = n(),
+    total_epa = sum(epa, na.rm = TRUE),
+    avg_epa = mean(epa, na.rm = TRUE)
+  ) %>% 
+  ungroup() %>% 
+  arrange(-total_epa)
+
+# Calculate total and average EPA by QB for completed passes only
+qb_completions_epa <- 
+  passes %>% 
+  dplyr::filter(complete_pass == 1) %>% 
+  group_by(passer_player_name) %>% 
+  summarise(
+    n_play = n(),
+    total_epa = sum(epa, na.rm = TRUE),
+    avg_epa = mean(epa, na.rm = TRUE)
+  ) %>% 
+  ungroup() %>% 
+  arrange(-total_epa) %>% 
+  dplyr::filter(n_play > 50) 
+
+qb_completions_epa %>% 
+  ggplot() +
+  geom_point(aes(x = avg_epa, y = total_epa))
