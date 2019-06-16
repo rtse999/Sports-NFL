@@ -93,12 +93,11 @@ qb_pass_comparison <-
 
 qb_los_epa <- left_join(qb_los_epa, qb_pass_comparison, 
                         by = "passer_player_name")
-
-# QB LOS chart ------------------------------------------------------------
 qb_los_epa_labels <-
   qb_los_epa %>% 
   slice(1:5, (nrow(qb_los_epa)-3):nrow(qb_los_epa))
 
+# Chart: QB LOS -----------------------------------------------------------
 qb_los_epa %>% 
   ggplot() +
   geom_vline(xintercept = 0, colour = "white", size = 3) +
@@ -124,11 +123,13 @@ sum(qb_los_epa$completions)
 # Completion rate behind LOS 
 sum(qb_los_epa$completions) / sum(qb_los_epa$n_play)
 
-# Calculate total and average EPA by Andrew Luck --------------------------
+
+# Andrew Luck -------------------------------------------------------------
 andrew_luck_los_epa <- 
   passes %>% 
   dplyr::filter(air_yards <= 0, passer_player_name == "A.Luck")
 
+# Chart: Andrew Luck: EPA -------------------------------------------------
 andrew_luck_los_epa %>% 
   ggplot() +
   geom_histogram(aes(x = epa), bins = 10) +
@@ -139,6 +140,7 @@ andrew_luck_los_epa %>%
     y = "Attempts"
   )
 
+# Chart: Andrew Luck: Yards gained distribution ---------------------------
 andrew_luck_los_epa %>% 
   ggplot() +
   geom_histogram(aes(x = yards_gained), bins = 10) +
@@ -152,14 +154,16 @@ andrew_luck_los_epa %>%
 # Average EPA for Andrew Luck on passes behind the LOS is ...
 mean(andrew_luck_los_epa$epa, na.rm = TRUE)
 
-# Why does play_id == 4247 have epa == NA when it shouldn't ?
+# Why does play_id == 4247 have epa == NA when it shouldn't ? -------------
 err <- dplyr::filter(andrew_luck_los_epa, is.na(epa))
 
-# Calculate total and average EPA by Patrick Mahomes --------------------------
+
+# Patrick Mahomes ---------------------------------------------------------
 patrick_mahomes_los_epa <- 
   passes %>% 
   dplyr::filter(air_yards <= 0, passer_player_name == "P.Mahomes")
 
+# Chart: Patrick Mahomes: EPA ---------------------------------------------
 patrick_mahomes_los_epa %>% 
   ggplot() +
   geom_histogram(aes(x = epa), bins = 10) +
@@ -170,6 +174,7 @@ patrick_mahomes_los_epa %>%
     y = "Attempts"
   )
 
+# Chart: Patrick Mahomes: Yards gained distribution -----------------------
 patrick_mahomes_los_epa %>% 
   ggplot() +
   geom_histogram(aes(x = yards_gained), bins = 10) +
@@ -179,6 +184,7 @@ patrick_mahomes_los_epa %>%
     x = "Yards Gained",
     y = "Attempts"
   )
+
 
 # Calculate total and average EPA by QB for completed passes up to --------
 qb_completions_los_epa <- 
